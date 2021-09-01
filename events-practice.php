@@ -12,7 +12,7 @@
  */
 
  // If this file is called directly, abort
- if ( ! defined( 'WPINC' ) ) {
+ if ( !defined( 'WPINC' ) ) {
      die;
  }
 
@@ -25,9 +25,12 @@ define( 'EVENTSPRACTICE_DIR', plugin_dir_path( __FILE__ ) );
 include( EVENTSPRACTICE_DIR. '/class-eventspractice.php' );
 
 // Include the rsvp class
-include( EVENTSPRACTICE_DIR. '/class-reservation.php' );
+include( EVENTSPRACTICE_DIR. '/class-reservation-1.php' );
 
 include( EVENTSPRACTICE_DIR. 'includes/eventspractice-menus.php' );
+
+
+$events_practice = new Events_Practice();
 
 // Add link to the settings page below the plugin description
 function eventspractice_add_settings_link( $links )
@@ -40,6 +43,8 @@ $filter_name = "plugin_action_links_" . plugin_basename( __FILE__ );
 add_filter( $filter_name, 'eventspractice_add_settings_link' );
 
 // Create Plugin Options
-include( plugin_dir_path( __FILE__ ) . 'includes/eventspractice-options.php');
+include( EVENTSPRACTICE_DIR . 'includes/eventspractice-options.php');
 
-?>
+// Testing table creation
+$reservation = new Events_Practice_Reservation();
+register_activation_hook( __FILE__, array( 'Events_Practice_Reservation', 'create_reservations_table' ) );

@@ -108,7 +108,7 @@ function complete_reservation($username, $author) {
 
 function custom_reservation_function() {
 
-
+	$status = null;
 
     if ( isset($_POST['name'] ) ) {
         // Check that the nonce was set and valid
