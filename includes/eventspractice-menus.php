@@ -1,4 +1,10 @@
 <?php
+/**
+* Plugin Menus.
+*
+* Experimental to test the functions to add menus and submenus.
+*/
+
 // Add pages to WP Admin
  function eventspractice_settings_page()
  {

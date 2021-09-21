@@ -1,4 +1,9 @@
 <?php
+/**
+* Plugin Options.
+*
+* Experimental to test the functions to display options inside specific menu items.
+*/
 
 // Function for learning how to add options
 // SQL Query: SELECT * FROM wp_options WHERE option_name = "eventspractice_option";
