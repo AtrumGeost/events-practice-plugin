@@ -11,40 +11,40 @@
  * Domain Path:       /languages
  */
 
- // If this file is called directly, abort
- if ( !defined( 'WPINC' ) ) {
-     die;
- }
+// If this file is called directly, abort
+if (!defined('WPINC') ) {
+    die;
+}
 
 // Define plugin paths and URLs
-define( 'EVENTSPRACTICE_URL', plugin_dir_url( __FILE__ ) );
-define( 'EVENTSPRACTICE_DIR', plugin_dir_path( __FILE__ ) );
-
+define('EVENTSPRACTICE_URL', plugin_dir_url(__FILE__));
+define('EVENTSPRACTICE_DIR', plugin_dir_path(__FILE__));
 
 // Include the main plugin class
-include( EVENTSPRACTICE_DIR. '/class-eventspractice.php' );
+require EVENTSPRACTICE_DIR. '/class-eventspractice.php';
 
-// Include the rsvp class
-include( EVENTSPRACTICE_DIR. '/class-reservation-1.php' );
+// Include the reservation class
+require EVENTSPRACTICE_DIR. '/class-reservation.php';
 
-include( EVENTSPRACTICE_DIR. 'includes/eventspractice-menus.php' );
+// Include custom menus
+require EVENTSPRACTICE_DIR. 'includes/eventspractice-menus.php';
 
-
-$events_practice = new Events_Practice();
-
-// Add link to the settings page below the plugin description
+// TESTING: Add link to the settings page below the plugin description
 function eventspractice_add_settings_link( $links )
 {
-    $settings_link = '<a href="admin.php?page=wpplugin-settings">' . esc_html__( 'Settings', 'eventspractice' ) . '</a>';
-    array_push( $links, $settings_link );
+    $settings_link = '<a href="admin.php?page=wpplugin-settings">' . esc_html__('Settings', 'eventspractice') . '</a>';
+    array_push($links, $settings_link);
     return $links;
 }
-$filter_name = "plugin_action_links_" . plugin_basename( __FILE__ );
-add_filter( $filter_name, 'eventspractice_add_settings_link' );
+$filter_name = "plugin_action_links_" . plugin_basename(__FILE__);
+add_filter($filter_name, 'eventspractice_add_settings_link');
 
-// Create Plugin Options
-include( EVENTSPRACTICE_DIR . 'includes/eventspractice-options.php');
+// TESTING: Create Plugin Options
+require EVENTSPRACTICE_DIR . 'includes/eventspractice-options.php';
 
-// Testing table creation
+// Class initialization
+$events_practice = new Events_Practice();
+
+// TESTING:  Table creation
 $reservation = new Events_Practice_Reservation();
-register_activation_hook( __FILE__, array( 'Events_Practice_Reservation', 'create_reservations_table' ) );
+register_activation_hook(__FILE__, array( 'Events_Practice_Reservation', 'create_reservations_table' ));
