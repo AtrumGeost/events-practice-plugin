@@ -38,7 +38,7 @@ if (!class_exists('Reservations_List_Table') ) {
         /**
          * Retrieve reservations data from the database
          *
-         * @param integer $per_page Number of items per page.
+         * @param integer $per_page    Number of items per page.
          * @param integer $page_number Page number.
          *
          * @return mixed
@@ -112,7 +112,7 @@ if (!class_exists('Reservations_List_Table') ) {
         /**
          * Render a column when no column specific method exist.
          *
-         * @param array  $item  An array of DB data.
+         * @param array  $item        An array of DB data.
          * @param string $column_name The column name.
          *
          * @return mixed
@@ -289,3 +289,118 @@ if (!class_exists('Reservations_List_Table') ) {
     
 }
 
+class Display_Reservations_Menu
+{
+
+    // class instance
+    static $instance;
+
+    // customer WP_List_Table object
+    public $reservations_obj;
+
+    // class constructor
+    public function __construct()
+    {
+        add_filter('set-screen-option', [ __CLASS__, 'set_screen' ], 10, 3);
+        add_action('admin_menu', [ $this, 'plugin_menu' ]);
+    }
+
+
+    public static function set_screen( $status, $option, $value )
+    {
+        return $value;
+    }
+
+    public function plugin_menu()
+    {
+
+        $hook = add_submenu_page(
+            'edit.php?post_type=event',
+            __('Reservations', 'eventspractice'),
+            __('Reservations', 'eventspractice'),
+            'manage_options',
+            'reservations',
+            [ $this, 'plugin_settings_page' ]
+        );
+
+        add_action("load-$hook", [ $this, 'screen_option' ]);
+
+    }
+
+
+    /**
+     * Plugin settings page
+     */
+    public function plugin_settings_page()
+    {
+        ?>
+        <div class="wrap">
+            <h2>Reservations</h2>
+
+            <div id="poststuff">
+                <div id="post-body" class="metabox-holder columns-2">
+                    <div id="post-body-content">
+                        <div class="meta-box-sortables ui-sortable">
+                            <form method="post">
+                                <?php
+                                $this->reservations_obj->prepare_items();
+                                $this->reservations_obj->display(); 
+                                ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br class="clear">
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * Screen options
+     */
+    public function screen_option()
+    {
+
+        $option = 'per_page';
+        $args   = [
+        'label'   => 'Number of reservations',
+        'default' => 5,
+        'option'  => 'reservations_per_page'
+        ];
+
+        add_screen_option($option, $args);
+
+        $this->reservations_obj = new Reservations_List_Table();
+    }
+
+
+    /**
+     * Singleton instance 
+     */
+    public static function get_instance()
+    {
+        if (! isset(self::$instance) ) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+}
+
+
+add_action(
+    'plugins_loaded', function () {
+        Display_Reservations_Menu::get_instance();
+    } 
+);
+
+
+// Allow redirection
+// Check: https://stackoverflow.com/questions/7381661/cannot-modify-header-information-headers-already-sent-by-wordpress-issue
+add_action('init', 'do_output_buffer');
+function do_output_buffer()
+{
+        ob_start();
+}
