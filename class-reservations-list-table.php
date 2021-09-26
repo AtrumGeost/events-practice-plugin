@@ -14,8 +14,8 @@ if (! class_exists('WP_List_Table') ) {
     include_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if (!class_exists('Reservations_List') ) {
-    class Reservations_List extends WP_List_Table
+if (!class_exists('Reservations_List_Table') ) {
+    class Reservations_List_Table extends WP_List_Table
     {
     
         /**

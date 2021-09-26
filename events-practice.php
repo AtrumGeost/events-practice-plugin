@@ -26,6 +26,9 @@ require EVENTSPRACTICE_DIR. '/class-eventspractice.php';
 // Include the reservation class
 require EVENTSPRACTICE_DIR. '/class-reservation.php';
 
+// Include the reservation list table class
+require EVENTSPRACTICE_DIR. '/class-reservations-list-table.php';
+
 // TESTING: Add link to the settings page below the plugin description
 function eventspractice_add_settings_link( $links )
 {
@@ -42,3 +45,6 @@ $events_practice = new Events_Practice();
 // Class initialization for reservations
 $reservation = new Events_Practice_Reservation();
 register_activation_hook(__FILE__, array( 'Events_Practice_Reservation', 'create_reservations_table' ));
+
+// Class initialization for Reservations List Table
+// $reservation_list_table = new Reservations_List_Table();
