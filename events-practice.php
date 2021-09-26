@@ -26,8 +26,8 @@ require EVENTSPRACTICE_DIR. '/class-eventspractice.php';
 // Include the reservation class
 require EVENTSPRACTICE_DIR. '/class-reservation.php';
 
-// Include custom menus
-require EVENTSPRACTICE_DIR. 'includes/eventspractice-menus.php';
+// Include the reservation list table class
+require EVENTSPRACTICE_DIR. '/class-reservations-list-table.php';
 
 // TESTING: Add link to the settings page below the plugin description
 function eventspractice_add_settings_link( $links )
@@ -39,12 +39,12 @@ function eventspractice_add_settings_link( $links )
 $filter_name = "plugin_action_links_" . plugin_basename(__FILE__);
 add_filter($filter_name, 'eventspractice_add_settings_link');
 
-// TESTING: Create Plugin Options
-require EVENTSPRACTICE_DIR . 'includes/eventspractice-options.php';
-
-// Class initialization
+// Class initialization for events
 $events_practice = new Events_Practice();
 
-// TESTING:  Table creation
+// Class initialization for reservations
 $reservation = new Events_Practice_Reservation();
 register_activation_hook(__FILE__, array( 'Events_Practice_Reservation', 'create_reservations_table' ));
+
+// Class initialization for Reservations List Table
+// $reservation_list_table = new Reservations_List_Table();
