@@ -1,6 +1,6 @@
 # A plugin to practice and apply my developer knowledge
 
-This is a plugin that serves as a playground to try and learn new things. This is my first WordPress plugin that looks into WP Development features like:
+This is a plugin that serves as a playground to try and learn new things. This is my first WordPress plugin that looks into WP Development concepts like:
 - Custom Post Types
 - The WP DB Class
 - Extending WP_List_Table Class
