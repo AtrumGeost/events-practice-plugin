@@ -9,7 +9,7 @@ This is a plugin that serves as a playground to try and learn new things. This i
 - WP Coding Standards and Documentation
 - Debugging
 - Github and Git workflows
-- Refactoring and the DRI (Don't Repeat Yourself Principle)
+- Refactoring and the DRI (Don't Repeat Yourself) Principle
 
 ## Setup
 
