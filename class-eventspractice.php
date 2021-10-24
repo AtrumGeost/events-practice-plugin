@@ -446,7 +446,6 @@ Source:
 
 https://jeroensormani.com/how-to-add-template-files-in-your-plugin/
 https://www.benmarshall.me/add-wordpress-plugin-template-files/
-.
 
 */
 
